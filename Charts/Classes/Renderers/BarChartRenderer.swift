@@ -234,6 +234,14 @@ public class BarChartRenderer: ChartDataRendererBase
                     // Set the color for the currently drawn value. If the index is out of bounds, reuse colors.
                     CGContextSetFillColorWithColor(context, dataSet.colorAt(k).CGColor)
                     CGContextFillRect(context, barRect)
+                    // add borders to the bar chart
+                    // TODO: configuration variables for enabling/diabling, color and width
+                    let bezierPath:UIBezierPath  = UIBezierPath(rect: barRect);
+                    CGContextSetStrokeColorWithColor(context, UIColor.whiteColor().CGColor);
+                    bezierPath.stroke();
+                    
+                    // add path
+                    CGContextAddPath(context, bezierPath.CGPath);
                 }
             }
         }
