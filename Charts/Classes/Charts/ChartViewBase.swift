@@ -503,8 +503,9 @@ public class ChartViewBase: UIView, ChartDataProvider, ChartAnimatorDelegate
         {
             let highlight = _indicesToHighlight[i]
             let xIndex = highlight.xIndex
+            let shouldDrawMarker = highlight.shouldDrawMarker
 
-            if (xIndex <= Int(_deltaX) && xIndex <= Int(_deltaX * _animator.phaseX))
+            if (shouldDrawMarker && (xIndex <= Int(_deltaX) && xIndex <= Int(_deltaX * _animator.phaseX)))
             {
                 let e = _data.getEntryForHighlight(highlight)
                 if (e === nil || e!.xIndex != highlight.xIndex)

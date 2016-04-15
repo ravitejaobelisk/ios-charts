@@ -29,6 +29,8 @@ public class ChartHighlight: NSObject
     
     /// the range of the bar that is selected (only for stacked-barchart)
     private var _range: ChartRange?
+    // set should drawer enabled
+    private var _shouldDrawMarker:Bool = true;
 
     public override init()
     {
@@ -51,6 +53,14 @@ public class ChartHighlight: NSObject
         _dataSetIndex = dataSetIndex
         _stackIndex = stackIndex
     }
+
+    public init(xIndex x:Int, dataSetIndex: Int, shouldDrawMarker: Bool) {
+        super.init()
+
+        _xIndex = x
+        _dataSetIndex = dataSetIndex
+        _shouldDrawMarker = shouldDrawMarker
+    }
     
     /// Constructor, only used for stacked-barchart.
     ///
@@ -68,6 +78,7 @@ public class ChartHighlight: NSObject
     public var dataSetIndex: Int { return _dataSetIndex; }
     public var xIndex: Int { return _xIndex; }
     public var stackIndex: Int { return _stackIndex; }
+    public var shouldDrawMarker: Bool { return _shouldDrawMarker }
     
     /// - returns: the range of values the selected value of a stacked bar is in. (this is only relevant for stacked-barchart)
     public var range: ChartRange? { return _range }
