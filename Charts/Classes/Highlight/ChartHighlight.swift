@@ -29,6 +29,7 @@ public class ChartHighlight: NSObject
     
     /// the range of the bar that is selected (only for stacked-barchart)
     private var _range: ChartRange?
+
     // set should drawer enabled
     private var _shouldDrawMarker:Bool = true;
 

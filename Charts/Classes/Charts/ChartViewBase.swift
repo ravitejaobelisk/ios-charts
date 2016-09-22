@@ -525,10 +525,11 @@ public class ChartViewBase: UIView, ChartDataProvider, ChartAnimatorDelegate
                 marker!.refreshContent(entry: e!, highlight: highlight)
 
                 let markerSize = marker!.size
+                // marker is at the top
                 if (pos.y - markerSize.height <= 0.0)
                 {
                     let y = markerSize.height - pos.y
-                    marker!.draw(context: context, point: CGPoint(x: pos.x, y: pos.y + y))
+                    marker!.draw(context: context, point: pos)
                 }
                 else
                 {

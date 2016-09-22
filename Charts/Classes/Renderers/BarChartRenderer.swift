@@ -71,7 +71,7 @@ public class BarChartRenderer: ChartDataRendererBase
         var barRect = CGRect()
         var barShadow = CGRect()
         var y: Double
-        
+     
         // do the drawing
         for (var j = 0, count = Int(ceil(CGFloat(dataSet.entryCount) * animator.phaseX)); j < count; j++)
         {
@@ -133,14 +133,41 @@ public class BarChartRenderer: ChartDataRendererBase
                 // Set the color for the currently drawn value. If the index is out of bounds, reuse colors.
                 CGContextSetFillColorWithColor(context, dataSet.colorAt(j).CGColor)
                 CGContextFillRect(context, barRect)
+                //Add dashed line
+                if dataSet.colorAt(j) != UIColor.whiteColor().colorWithAlphaComponent(0.75) && dataSet.entryForIndex(j)?.value != Double(0.0) {
+                    CGContextSetLineDash(context, 2, [4], 1)
+                }
+                
                 // add borders to the bar chart
                 // TODO: configuration variables for enabling/diabling, color and width
                 let bezierPath:UIBezierPath  = UIBezierPath(rect: barRect);
-                CGContextSetStrokeColorWithColor(context, UIColor.whiteColor().CGColor);
-                bezierPath.stroke();
-                
+                let barValue = j % 2
+               
+                switch barValue {
+                case 0:
+                    
+                    CGContextSetStrokeColorWithColor(context, UIColor.whiteColor().CGColor);
+                    bezierPath.stroke();
+                   
+                    break
+                case 1:
+                    if dataSet.colorAt(j) != UIColor.whiteColor().colorWithAlphaComponent(0.75) && (dataSet.entryForIndex(j)?.value > dataSet.entryForIndex(j - 1)?.value) {
+                        
+                        CGContextSetStrokeColorWithColor(context, UIColor(red: 133/255.0, green: 132/255.0, blue: 132/255.0, alpha: 1).CGColor);
+                        bezierPath.stroke();
+                        
+                    } else {
+                        CGContextSetStrokeColorWithColor(context, UIColor.whiteColor().CGColor);
+                        bezierPath.stroke();
+                        
+                    }
+                    break
+                default:
+                    break
+                }
                 // add path
                 CGContextAddPath(context, bezierPath.CGPath);
+                
             }
             else
             {
@@ -242,6 +269,7 @@ public class BarChartRenderer: ChartDataRendererBase
                     // Set the color for the currently drawn value. If the index is out of bounds, reuse colors.
                     CGContextSetFillColorWithColor(context, dataSet.colorAt(k).CGColor)
                     CGContextFillRect(context, barRect)
+                    
                 }
             }
         }

@@ -530,7 +530,7 @@ public class LineChartRenderer: LineRadarChartRenderer
             
             let circleRadius = dataSet.circleRadius
             let circleDiameter = circleRadius * 2.0
-            let circleHoleDiameter = circleRadius
+            let circleHoleDiameter = circleRadius - 2.0
             let circleHoleRadius = circleHoleDiameter / 2.0
             let isDrawCircleHoleEnabled = dataSet.isDrawCircleHoleEnabled
             
@@ -562,22 +562,69 @@ public class LineChartRenderer: LineRadarChartRenderer
                     continue
                 }
                 
-                CGContextSetFillColorWithColor(context, dataSet.getCircleColor(j)!.CGColor)
+                CGContextSetFillColorWithColor(context, UIColor(red: 42/255, green: 46/255, blue: 50/255, alpha: 0.6).CGColor)
                 
-                rect.origin.x = pt.x - circleRadius
-                rect.origin.y = pt.y - circleRadius
-                rect.size.width = circleDiameter
-                rect.size.height = circleDiameter
+                rect.origin.x = pt.x - 9.8
+                rect.origin.y = pt.y - 9.8
+                rect.size.width = 19.6
+                rect.size.height = 19.6
                 CGContextFillEllipseInRect(context, rect)
                 
                 if (isDrawCircleHoleEnabled)
                 {
+                    var middleCircleColor = UIColor(red: 31/255, green: 208/255, blue: 95/255, alpha: 0.7);
+                    var outerMostCircleColor = UIColor(red: 31/255, green: 208/255, blue: 100/255, alpha: 0.4);
+
+                    let greenColor = UIColor(red: 31/255, green: 208/255, blue: 95/255, alpha: 1.0);
+
+                    let orangeColor = UIColor(red: 255/255, green: 90/255, blue: 18/255, alpha: 1.0);
+
+                    if(orangeColor.isEqual(dataSet.circleHoleColor)) {
+
+                        middleCircleColor = UIColor(red: 255/255, green: 90/255, blue: 18/255, alpha: 0.7);
+
+                        outerMostCircleColor = UIColor(red: 255/255, green: 90/255, blue: 18/255, alpha: 0.4);
+                    }
+                    /**
+                     Middle Circle
+                    **/
+                    rect.origin.x = pt.x - 5.33
+                    rect.origin.y = pt.y - 5.33
+                    rect.size.width = 10.66
+                    rect.size.height = 10.66
+
+
+                    middleCircleColor.set();
+
+                    CGContextSetLineWidth(context, 1.5);
+                    CGContextStrokeEllipseInRect(context, rect)
+
+                    /**
+                     \End Middle Circle
+                    **/
+
+                    /**
+                     Outer Most Circle
+                    **/
+                    rect.origin.x = pt.x - 8.6
+                    rect.origin.y = pt.y - 8.6
+                    rect.size.width = 17.3
+                    rect.size.height = 17.3
+
+                    outerMostCircleColor.set();
+
+                    CGContextSetLineWidth(context, 1);
+                    CGContextStrokeEllipseInRect(context, rect)
+                    /**
+                     \END Outer Most Circle
+                    **/
+
                     CGContextSetFillColorWithColor(context, dataSet.circleHoleColor.CGColor)
                     
-                    rect.origin.x = pt.x - circleHoleRadius
-                    rect.origin.y = pt.y - circleHoleRadius
-                    rect.size.width = circleHoleDiameter
-                    rect.size.height = circleHoleDiameter
+                    rect.origin.x = pt.x - 3.8
+                    rect.origin.y = pt.y - 3.8
+                    rect.size.width = 7.6
+                    rect.size.height = 7.6
                     CGContextFillEllipseInRect(context, rect)
                 }
             }
