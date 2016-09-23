@@ -659,15 +659,22 @@ public class LineChartRenderer: LineRadarChartRenderer
             let entryCount = dataSet.entryCount
 
             let circleRadius = dataSet.circleRadius
-            let circleDiameter = circleRadius * 2.0
+            _ = circleRadius * 2.0
             let circleHoleDiameter = circleRadius - 2.0
             let circleHoleRadius = circleHoleDiameter / 2.0
-            let isDrawCircleHoleEnabled = dataSet.isDrawCircleHoleEnabled
+            _ = dataSet.isDrawCircleHoleEnabled
 
             guard let
                 entryFrom = dataSet.entryForXIndex(self.minX < 0 ? 0 : self.minX, rounding: .Down),
                 entryTo = dataSet.entryForXIndex(self.maxX, rounding: .Up)
                 else { continue }
+            
+            let drawCircleHole = dataSet.isDrawCircleHoleEnabled &&
+                circleHoleRadius < circleRadius &&
+                circleHoleRadius > 0.0
+            let drawTransparentCircleHole = drawCircleHole &&
+                (dataSet.circleHoleColor == nil ||
+                    dataSet.circleHoleColor == NSUIColor.clearColor())
 
             var diff = (entryFrom == entryTo) ? 1 : 0
             if dataSet.mode == .CubicBezier
@@ -697,7 +704,7 @@ public class LineChartRenderer: LineRadarChartRenderer
                     continue
                 }
 
-                CGContextSetFillColorWithColor(context, UIColor(red: 42/255, green: 46/255, blue: 50/255, alpha: 0.6).CGColor)
+                CGContextSetFillColorWithColor(context, NSUIColor(red: 42/255, green: 46/255, blue: 50/255, alpha: 0.6).CGColor)
                 rect.origin.x = pt.x - 9.8
                 rect.origin.y = pt.y - 9.8
                 rect.size.width = 19.6
@@ -706,18 +713,18 @@ public class LineChartRenderer: LineRadarChartRenderer
 
                 if drawTransparentCircleHole
                 {
-                    var middleCircleColor = UIColor(red: 31/255, green: 208/255, blue: 95/255, alpha: 0.7);
-                    var outerMostCircleColor = UIColor(red: 31/255, green: 208/255, blue: 100/255, alpha: 0.4);
+                    var middleCircleColor = NSUIColor(red: 31/255, green: 208/255, blue: 95/255, alpha: 0.7);
+                    var outerMostCircleColor = NSUIColor(red: 31/255, green: 208/255, blue: 100/255, alpha: 0.4);
 
-                    let greenColor = UIColor(red: 31/255, green: 208/255, blue: 95/255, alpha: 1.0);
+                    _ = NSUIColor(red: 31/255, green: 208/255, blue: 95/255, alpha: 1.0);
 
-                    let orangeColor = UIColor(red: 255/255, green: 90/255, blue: 18/255, alpha: 1.0);
+                    let orangeColor = NSUIColor(red: 255/255, green: 90/255, blue: 18/255, alpha: 1.0);
 
                     if(orangeColor.isEqual(dataSet.circleHoleColor)) {
 
-                        middleCircleColor = UIColor(red: 255/255, green: 90/255, blue: 18/255, alpha: 0.7);
+                        middleCircleColor = NSUIColor(red: 255/255, green: 90/255, blue: 18/255, alpha: 0.7);
 
-                        outerMostCircleColor = UIColor(red: 255/255, green: 90/255, blue: 18/255, alpha: 0.4);
+                        outerMostCircleColor = NSUIColor(red: 255/255, green: 90/255, blue: 18/255, alpha: 0.4);
                     }
                     /**
                      Middle Circle
@@ -753,7 +760,7 @@ public class LineChartRenderer: LineRadarChartRenderer
                      \END Outer Most Circle
                     **/
 
-                    CGContextSetFillColorWithColor(context, dataSet.circleHoleColor.CGColor)
+                    CGContextSetFillColorWithColor(context, dataSet.circleHoleColor!.CGColor)
 
                     rect.origin.x = pt.x - 3.8
                     rect.origin.y = pt.y - 3.8

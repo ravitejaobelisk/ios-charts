@@ -87,6 +87,9 @@ public class ChartViewBase: NSUIView, ChartDataProvider, ChartAnimatorDelegate
 
     /// if true, units are drawn next to the values in the chart
     internal var _drawUnitInChart = false
+    
+    /// the number of x-values the chart displays
+    internal var _deltaX = CGFloat(1.0)
 
     /// the object representing the labels on the x-axis
     internal var _xAxis: ChartXAxis!
@@ -566,7 +569,7 @@ public class ChartViewBase: NSUIView, ChartDataProvider, ChartAnimatorDelegate
                 // marker is at the top
                 if (pos.y - markerSize.height <= 0.0)
                 {
-                    let y = markerSize.height - pos.y
+                    _ = markerSize.height - pos.y
                     marker!.draw(context: context, point: pos)
                 }
                 else

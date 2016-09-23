@@ -74,8 +74,8 @@ public class BarChartRenderer: ChartDataRendererBase
         var barRect = CGRect()
         var barShadow = CGRect()
         let borderWidth = dataSet.barBorderWidth
-        let borderColor = dataSet.barBorderColor
-        let drawBorder = borderWidth > 0.0
+        _ = dataSet.barBorderColor
+        _ = borderWidth > 0.0
         var y: Double
 
         // do the drawing
@@ -166,15 +166,13 @@ public class BarChartRenderer: ChartDataRendererBase
                     } else {
                         CGContextSetStrokeColorWithColor(context, UIColor.whiteColor().CGColor);
                         bezierPath.stroke();
-
                     }
                     break
                 default:
                     break
                 }
                 // add path
-                CGContextAddPath(context, bezierPath.CGPath);
-
+                CGContextAddPath(context, bezierPath.CGPath)
             }
             else
             {
@@ -485,7 +483,7 @@ public class BarChartRenderer: ChartDataRendererBase
     }
 
     /// Draws a value at the specified x and y position.
-    public func drawValue(context context: CGContext, value: String, xPos: CGFloat, yPos: CGFloat, font: NSUIFont, align: NSTextAlignment, color: NSUIColor)
+    public func drawValue(context context: CGContext, value: String, xPos: CGFloat, yPos: CGFloat, font: NSUIFont, align: NSTextAlignment, color: UIColor)
     {
         ChartUtils.drawText(context: context, text: value, point: CGPoint(x: xPos, y: yPos), align: align, attributes: [NSFontAttributeName: font, NSForegroundColorAttributeName: color])
     }

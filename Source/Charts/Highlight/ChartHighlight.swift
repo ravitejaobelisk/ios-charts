@@ -28,6 +28,9 @@ public class ChartHighlight: NSObject
     /// the index of the dataset the highlighted value is in
     private var _dataSetIndex = Int(0)
     
+    // set should drawer enabled
+    private var _shouldDrawMarker:Bool = true;
+    
     /// index which value of a stacked bar entry is highlighted
     /// 
     /// **default**: -1
@@ -40,6 +43,15 @@ public class ChartHighlight: NSObject
     {
         super.init()
     }
+    
+    public init(xIndex x:Int, dataSetIndex: Int, shouldDrawMarker: Bool) {
+        super.init()
+        
+        _xIndex = x
+        _dataSetIndex = dataSetIndex
+        _shouldDrawMarker = shouldDrawMarker
+    }
+
     
     /// - parameter xIndex: the index of the highlighted value on the x-axis
     /// - parameter value: the y-value of the highlighted value
@@ -109,6 +121,7 @@ public class ChartHighlight: NSObject
     public var dataIndex: Int { return _dataIndex }
     public var dataSetIndex: Int { return _dataSetIndex }
     public var stackIndex: Int { return _stackIndex }
+    public var shouldDrawMarker: Bool { return _shouldDrawMarker }
     
     /// - returns: the range of values the selected value of a stacked bar is in. (this is only relevant for stacked-barchart)
     public var range: ChartRange? { return _range }
