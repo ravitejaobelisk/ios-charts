@@ -108,6 +108,9 @@ public class ChartYAxis: ChartAxisBase
     /// axis space from the smallest value to the bottom in percent of the total axis range
     public var spaceBottom = CGFloat(0.1)
     
+    public var axisMaximum = Double(0)
+    public var axisMinimum = Double(0)
+    
     /// the position of the y-labels relative to the chart
     public var labelPosition = LabelPosition.OutsideChart
     
