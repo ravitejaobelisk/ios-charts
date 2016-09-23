@@ -28,7 +28,7 @@ public class ChartHighlight: NSObject
     private var _stackIndex = Int(-1)
     
     /// the range of the bar that is selected (only for stacked-barchart)
-    private var _range: ChartRange?
+    private var _range: Range?
 
     // set should drawer enabled
     private var _shouldDrawMarker:Bool = true;
@@ -69,7 +69,7 @@ public class ChartHighlight: NSObject
     /// - parameter dataSet: the index of the DataSet the highlighted value belongs to
     /// - parameter stackIndex: references which value of a stacked-bar entry has been selected
     /// - parameter range: the range the selected stack-value is in
-    public convenience init(xIndex x: Int, dataSetIndex: Int, stackIndex: Int, range: ChartRange)
+    public convenience init(xIndex x: Int, dataSetIndex: Int, stackIndex: Int, range: Range)
     {
         self.init(xIndex: x, dataSetIndex: dataSetIndex, stackIndex: stackIndex)
         
@@ -82,7 +82,7 @@ public class ChartHighlight: NSObject
     public var shouldDrawMarker: Bool { return _shouldDrawMarker }
     
     /// - returns: the range of values the selected value of a stacked bar is in. (this is only relevant for stacked-barchart)
-    public var range: ChartRange? { return _range }
+    public var range: Range? { return _range }
 
     // MARK: NSObject
     
