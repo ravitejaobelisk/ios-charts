@@ -662,7 +662,7 @@ public class LineChartRenderer: LineRadarChartRenderer
             _ = circleRadius * 2.0
             let circleHoleDiameter = circleRadius - 2.0
             let circleHoleRadius = circleHoleDiameter / 2.0
-            _ = dataSet.isDrawCircleHoleEnabled
+            let isDrawCircleHoleEnabled = dataSet.isDrawCircleHoleEnabled
 
             guard let
                 entryFrom = dataSet.entryForXIndex(self.minX < 0 ? 0 : self.minX, rounding: .Down),
@@ -711,7 +711,7 @@ public class LineChartRenderer: LineRadarChartRenderer
                 rect.size.height = 19.6
                 CGContextFillEllipseInRect(context, rect)
 
-                if drawTransparentCircleHole
+                if isDrawCircleHoleEnabled
                 {
                     var middleCircleColor = NSUIColor(red: 31/255, green: 208/255, blue: 95/255, alpha: 0.7);
                     var outerMostCircleColor = NSUIColor(red: 31/255, green: 208/255, blue: 100/255, alpha: 0.4);
