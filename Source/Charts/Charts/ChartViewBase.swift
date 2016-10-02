@@ -87,7 +87,7 @@ public class ChartViewBase: NSUIView, ChartDataProvider, ChartAnimatorDelegate
 
     /// if true, units are drawn next to the values in the chart
     internal var _drawUnitInChart = false
-    
+
     /// the number of x-values the chart displays
     internal var _deltaX = CGFloat(1.0)
 
@@ -502,7 +502,7 @@ public class ChartViewBase: NSUIView, ChartDataProvider, ChartAnimatorDelegate
                 if self is BarLineChartViewBase
                     && (self as! BarLineChartViewBase).isHighlightFullBarEnabled
                 {
-                    h = ChartHighlight(xIndex: h!.xIndex, value: Double.NaN, dataIndex: 0, dataSetIndex: 0, stackIndex: -1)
+                    h = ChartHighlight(xIndex: h!.xIndex, value: Double.NaN, dataIndex: 0, dataSetIndex: 0, stackIndex: 0)
                 }
 
                 _indicesToHighlight = [h!]
@@ -545,8 +545,9 @@ public class ChartViewBase: NSUIView, ChartDataProvider, ChartAnimatorDelegate
             let highlight = _indicesToHighlight[i]
             let xIndex = highlight.xIndex
             let shouldDrawMarker = highlight.shouldDrawMarker
-
-            if (shouldDrawMarker && (xIndex <= Int(_deltaX) && xIndex <= Int(_deltaX * _animator.phaseX)))
+            
+            let deltaX = _xAxis?.axisRange ?? (Double(_data?.xValCount ?? 0) - 1)
+            if (shouldDrawMarker && (xIndex <= Int(deltaX) && xIndex <= Int(CGFloat(deltaX) * _animator.phaseX)))
             {
                 let e = _data?.getEntryForHighlight(highlight)
                 if (e === nil || e!.xIndex != highlight.xIndex)
